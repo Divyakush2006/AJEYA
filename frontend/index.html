@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajeya — Intelligent Retail Data Hub</title>
+    <meta name="description"
+        content="Ajeya: Smart Retail Supply Chain & Customer Intelligence Platform. Unify POS, E-commerce, and Warehouse data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- SPLASH LOADER -->
+    <div id="splash" class="splash">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <div class="logo-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+                <span class="splash-title">AJEYA</span>
+            </div>
+            <p class="splash-subtitle">Intelligent Retail Data Hub</p>
+            <div class="splash-bar">
+                <div class="splash-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <div id="app" class="app hidden">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-icon">
+                        <i class="fa-solid fa-atom"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h1>AJEYA</h1>
+                        <span>Data Intelligence</span>
+                    </div>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fa-solid fa-angles-left"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <span class="nav-label">Main</span>
+                    <a href="#" class="nav-item active" data-page="overview">
+                        <i class="fa-solid fa-table-cells"></i>
+                        <span>Overview</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="inventory">
+                        <i class="fa-solid fa-warehouse"></i>
+                        <span>Inventory</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="analytics">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <span class="nav-label">Intelligence</span>
+                    <a href="#" class="nav-item" data-page="ml-insights">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>ML Insights</span>
+                        <span class="nav-badge pulse">3</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="pipeline">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        <span>Data Pipeline</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <span class="nav-label">System</span>
+                    <a href="#" class="nav-item" data-page="settings">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar">DK</div>
+                    <div class="user-info">
+                        <span class="user-name">Divyakush P.</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- TOP BAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="topbar-menu" id="menuToggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search products, analytics, insights...">
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-btn" id="themeToggle" title="Toggle theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button class="topbar-btn notification-btn">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <div class="pipeline-status">
+                        <span class="status-dot online"></span>
+                        <span>Pipeline Active</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <div class="page-wrapper">
+
+                <!-- ========== OVERVIEW PAGE ========== -->
+                <section id="page-overview" class="page active">
+                    <div class="page-header">
+                        <div>
+                            <h2 class="page-title">Dashboard Overview</h2>
+                            <p class="page-subtitle">Real-time insights across all channels</p>
+                        </div>
+                        <div class="page-actions">
+                            <select class="select-input" id="dateRange">
+                                <option>Last 30 Days</option>
+                                <option>Last 7 Days</option>
+                                <option>Last 90 Days</option>
+                                <option selected>All Time</option>
+                            </select>
+                            <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Export</button>
+                        </div>
+                    </div>
+
+                    <!-- KPI CARDS -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card" data-animate="fadeUp" style="--delay: 0s">
+                            <div class="kpi-icon revenue"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Total Revenue</span>
+                                <span class="kpi-value" data-counter="9353633">₹0</span>
+                                <span class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> 12.5% from last
+                                    month</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card" data-animate="fadeUp" style="--delay: 0.1s">
+                            <div class="kpi-icon transactions"><i class="fa-solid fa-receipt"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Transactions</span>
+                                <span class="kpi-value" data-counter="1500">0</span>
+                                <span class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> 8.3% from last
+                                    month</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card" data-animate="fadeUp" style="--delay: 0.2s">
+                            <div class="kpi-icon warning"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Low Stock Alerts</span>
+                                <span class="kpi-value" data-counter="33">0</span>
+                                <span class="kpi-trend down"><i class="fa-solid fa-arrow-down"></i> 5 fewer than last
+                                    week</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card" data-animate="fadeUp" style="--delay: 0.3s">
+                            <div class="kpi-icon danger"><i class="fa-solid fa-box-open"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Stock-out Risks</span>
+                                <span class="kpi-value" data-counter="6">0</span>
+                                <span class="kpi-trend critical"><i class="fa-solid fa-circle-exclamation"></i> Requires
+                                    attention</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHARTS ROW -->
+                    <div class="charts-grid">
+                        <div class="card chart-card" data-animate="fadeUp" style="--delay: 0.4s">
+                            <div class="card-header">
+                                <h3>Revenue Trend</h3>
+                                <div class="card-filters">
+                                    <button class="chip active">Monthly</button>
+                                    <button class="chip">Weekly</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card chart-card-small" data-animate="fadeUp" style="--delay: 0.5s">
+                            <div class="card-header">
+                                <h3>Channel Split</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="channelChart"></canvas>
+                                <div class="channel-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-dot offline"></span>
+                                        <span>Offline ₹7.1M</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot online"></span>
+                                        <span>Online ₹2.3M</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ML INSIGHTS PREVIEW + TOP PRODUCTS -->
+                    <div class="bottom-grid">
+                        <div class="card" data-animate="fadeUp" style="--delay: 0.6s">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-brain"></i> ML Recommendations</h3>
+                                <a href="#" class="card-link" data-page="ml-insights">View All →</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="insight-card markdown-card">
+                                    <div class="insight-icon"><i class="fa-solid fa-tag"></i></div>
+                                    <div class="insight-content">
+                                        <strong>Markdown Alert</strong>
+                                        <p>Apply <span class="highlight">12% discount</span> on Product P090 — 9,136
+                                            days of supply remaining</p>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline">Apply</button>
+                                </div>
+                                <div class="insight-card bundle-card">
+                                    <div class="insight-icon"><i class="fa-solid fa-gift"></i></div>
+                                    <div class="insight-content">
+                                        <strong>Bundle Opportunity</strong>
+                                        <p>Bundle <span class="highlight">P011 + P090</span> — 42% co-purchase
+                                            confidence</p>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline">Create</button>
+                                </div>
+                                <div class="insight-card reorder-card">
+                                    <div class="insight-icon"><i class="fa-solid fa-rotate"></i></div>
+                                    <div class="insight-content">
+                                        <strong>Reorder Needed</strong>
+                                        <p>Product P040 is <span class="highlight-danger">OUT OF STOCK</span> at
+                                            WH_North</p>
+                                    </div>
+                                    <button class="btn btn-sm btn-danger">Reorder</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" data-animate="fadeUp" style="--delay: 0.7s">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-ranking-star"></i> Top Products</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="top-products-list">
+                                    <div class="product-rank-item">
+                                        <span class="rank-badge gold">1</span>
+                                        <div class="product-rank-info">
+                                            <strong>Product P011</strong>
+                                            <span>82 units sold</span>
+                                        </div>
+                                        <div class="rank-bar">
+                                            <div class="rank-fill" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="product-rank-item">
+                                        <span class="rank-badge silver">2</span>
+                                        <div class="product-rank-info">
+                                            <strong>Product P029</strong>
+                                            <span>68 units sold</span>
+                                        </div>
+                                        <div class="rank-bar">
+                                            <div class="rank-fill" style="width: 83%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="product-rank-item">
+                                        <span class="rank-badge bronze">3</span>
+                                        <div class="product-rank-info">
+                                            <strong>Product P024</strong>
+                                            <span>66 units sold</span>
+                                        </div>
+                                        <div class="rank-bar">
+                                            <div class="rank-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="product-rank-item">
+                                        <span class="rank-badge">4</span>
+                                        <div class="product-rank-info">
+                                            <strong>Product P086</strong>
+                                            <span>65 units sold</span>
+                                        </div>
+                                        <div class="rank-bar">
+                                            <div class="rank-fill" style="width: 79%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="product-rank-item">
+                                        <span class="rank-badge">5</span>
+                                        <div class="product-rank-info">
+                                            <strong>Product P087</strong>
+                                            <span>62 units sold</span>
+                                        </div>
+                                        <div class="rank-bar">
+                                            <div class="rank-fill" style="width: 76%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== INVENTORY PAGE ========== -->
+                <section id="page-inventory" class="page">
+                    <div class="page-header">
+                        <div>
+                            <h2 class="page-title">Inventory Management</h2>
+                            <p class="page-subtitle">Track stock levels across all warehouses</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-outline"><i class="fa-solid fa-filter"></i> Filter</button>
+                            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Product</button>
+                        </div>
+                    </div>
+
+                    <!-- INVENTORY STAT CARDS -->
+                    <div class="inv-stats-grid">
+                        <div class="inv-stat-card">
+                            <div class="inv-stat-number">300</div>
+                            <div class="inv-stat-label">Total Records</div>
+                            <div class="inv-stat-icon"><i class="fa-solid fa-database"></i></div>
+                        </div>
+                        <div class="inv-stat-card warning">
+                            <div class="inv-stat-number">33</div>
+                            <div class="inv-stat-label">Low Stock</div>
+                            <div class="inv-stat-icon"><i class="fa-solid fa-exclamation"></i></div>
+                        </div>
+                        <div class="inv-stat-card danger">
+                            <div class="inv-stat-number">1</div>
+                            <div class="inv-stat-label">Out of Stock</div>
+                            <div class="inv-stat-icon"><i class="fa-solid fa-xmark"></i></div>
+                        </div>
+                        <div class="inv-stat-card success">
+                            <div class="inv-stat-number">267</div>
+                            <div class="inv-stat-label">Markdown Candidates</div>
+                            <div class="inv-stat-icon"><i class="fa-solid fa-tag"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- INVENTORY TABLE -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Stock Levels by Warehouse</h3>
+                            <div class="table-search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" placeholder="Search products..." id="inventorySearch">
+                            </div>
+                        </div>
+                        <div class="card-body no-padding">
+                            <table class="data-table" id="inventoryTable">
+                                <thead>
+                                    <tr>
+                                        <th>Product ID</th>
+                                        <th>Warehouse</th>
+                                        <th>Stock on Hand</th>
+                                        <th>Reorder Level</th>
+                                        <th>Status</th>
+                                        <th>Days of Supply</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Filled by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== ANALYTICS PAGE ========== -->
+                <section id="page-analytics" class="page">
+                    <div class="page-header">
+                        <div>
+                            <h2 class="page-title">Analytics</h2>
+                            <p class="page-subtitle">Deep dive into sales performance and trends</p>
+                        </div>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="card" data-animate="fadeUp">
+                            <div class="card-header">
+                                <h3>Sales by Category</h3>
+                            </div>
+                            <div class="card-body"><canvas id="categoryChart"></canvas></div>
+                        </div>
+                        <div class="card" data-animate="fadeUp">
+                            <div class="card-header">
+                                <h3>Daily Sales Volume</h3>
+                            </div>
+                            <div class="card-body"><canvas id="dailySalesChart"></canvas></div>
+                        </div>
+                        <div class="card" data-animate="fadeUp">
+                            <div class="card-header">
+                                <h3>Warehouse Stock Distribution</h3>
+                            </div>
+                            <div class="card-body"><canvas id="warehouseChart"></canvas></div>
+                        </div>
+                        <div class="card" data-animate="fadeUp">
+                            <div class="card-header">
+                                <h3>Top 10 Products by Revenue</h3>
+                            </div>
+                            <div class="card-body"><canvas id="topProductsChart"></canvas></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== ML INSIGHTS PAGE ========== -->
+                <section id="page-ml-insights" class="page">
+                    <div class="page-header">
+                        <div>
+                            <h2 class="page-title">ML Intelligence Hub</h2>
+                            <p class="page-subtitle">Prescriptive analytics — from prediction to action</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-primary pulse-btn"><i class="fa-solid fa-wand-magic-sparkles"></i>
+                                Run Analysis</button>
+                        </div>
+                    </div>
+
+                    <!-- ML TABS -->
+                    <div class="ml-tabs">
+                        <button class="ml-tab active" data-tab="markdown">
+                            <i class="fa-solid fa-tag"></i> Markdown Optimization
+                        </button>
+                        <button class="ml-tab" data-tab="bundles">
+                            <i class="fa-solid fa-gift"></i> Bundle Generator
+                        </button>
+                    </div>
+
+                    <!-- MARKDOWN TAB -->
+                    <div id="tab-markdown" class="ml-tab-content active">
+                        <div class="ml-summary-cards">
+                            <div class="ml-summary-card">
+                                <div class="ml-summary-value">267</div>
+                                <div class="ml-summary-label">Products Analyzed</div>
+                            </div>
+                            <div class="ml-summary-card accent">
+                                <div class="ml-summary-value">₹2.1M</div>
+                                <div class="ml-summary-label">Potential Recovery</div>
+                            </div>
+                            <div class="ml-summary-card success">
+                                <div class="ml-summary-value">38%</div>
+                                <div class="ml-summary-label">Avg. Profit Improvement</div>
+                            </div>
+                        </div>
+
+                        <div class="recommendations-grid">
+                            <div class="recommendation-card" data-animate="fadeUp" style="--delay: 0s">
+                                <div class="rec-header">
+                                    <span class="rec-priority critical">CRITICAL</span>
+                                    <span class="rec-confidence">Confidence: 94%</span>
+                                </div>
+                                <h4>Product P090 — Warehouse South</h4>
+                                <div class="rec-metrics">
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Current Stock</span>
+                                        <span class="rec-metric-value">486 units</span>
+                                    </div>
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Days of Supply</span>
+                                        <span class="rec-metric-value danger-text">9,136 days</span>
+                                    </div>
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Sales Velocity</span>
+                                        <span class="rec-metric-value">0.05 units/day</span>
+                                    </div>
+                                </div>
+                                <div class="rec-action">
+                                    <div class="discount-dial">
+                                        <div class="dial-ring">
+                                            <svg viewBox="0 0 36 36">
+                                                <path class="dial-bg"
+                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                    fill="none" stroke="#2a2d3e" stroke-width="3" />
+                                                <path class="dial-fill"
+                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                    fill="none" stroke="url(#gradient1)" stroke-width="3"
+                                                    stroke-dasharray="15, 100" />
+                                            </svg>
+                                            <span class="dial-value">15%</span>
+                                        </div>
+                                        <span class="dial-label">Recommended Discount</span>
+                                    </div>
+                                    <div class="rec-impact">
+                                        <p>Projected clearance in <strong>21 days</strong></p>
+                                        <p>Revenue recovery: <strong class="success-text">₹41,310</strong></p>
+                                    </div>
+                                    <button class="btn btn-primary">Apply Discount</button>
+                                </div>
+                            </div>
+
+                            <div class="recommendation-card" data-animate="fadeUp" style="--delay: 0.1s">
+                                <div class="rec-header">
+                                    <span class="rec-priority high">HIGH</span>
+                                    <span class="rec-confidence">Confidence: 89%</span>
+                                </div>
+                                <h4>Product P064 — Warehouse North</h4>
+                                <div class="rec-metrics">
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Current Stock</span>
+                                        <span class="rec-metric-value">453 units</span>
+                                    </div>
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Days of Supply</span>
+                                        <span class="rec-metric-value danger-text">8,369 days</span>
+                                    </div>
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Sales Velocity</span>
+                                        <span class="rec-metric-value">0.05 units/day</span>
+                                    </div>
+                                </div>
+                                <div class="rec-action">
+                                    <div class="discount-dial">
+                                        <div class="dial-ring">
+                                            <svg viewBox="0 0 36 36">
+                                                <path class="dial-bg"
+                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                    fill="none" stroke="#2a2d3e" stroke-width="3" />
+                                                <path class="dial-fill"
+                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                    fill="none" stroke="url(#gradient1)" stroke-width="3"
+                                                    stroke-dasharray="12, 100" />
+                                            </svg>
+                                            <span class="dial-value">12%</span>
+                                        </div>
+                                        <span class="dial-label">Recommended Discount</span>
+                                    </div>
+                                    <div class="rec-impact">
+                                        <p>Projected clearance in <strong>28 days</strong></p>
+                                        <p>Revenue recovery: <strong class="success-text">₹38,750</strong></p>
+                                    </div>
+                                    <button class="btn btn-primary">Apply Discount</button>
+                                </div>
+                            </div>
+
+                            <div class="recommendation-card" data-animate="fadeUp" style="--delay: 0.2s">
+                                <div class="rec-header">
+                                    <span class="rec-priority medium">MEDIUM</span>
+                                    <span class="rec-confidence">Confidence: 82%</span>
+                                </div>
+                                <h4>Product P085 — Warehouse North</h4>
+                                <div class="rec-metrics">
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Current Stock</span>
+                                        <span class="rec-metric-value">428 units</span>
+                                    </div>
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Days of Supply</span>
+                                        <span class="rec-metric-value warning-text">6,351 days</span>
+                                    </div>
+                                    <div class="rec-metric">
+                                        <span class="rec-metric-label">Sales Velocity</span>
+                                        <span class="rec-metric-value">0.07 units/day</span>
+                                    </div>
+                                </div>
+                                <div class="rec-action">
+                                    <div class="discount-dial">
+                                        <div class="dial-ring">
+                                            <svg viewBox="0 0 36 36">
+                                                <path class="dial-bg"
+                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                    fill="none" stroke="#2a2d3e" stroke-width="3" />
+                                                <path class="dial-fill"
+                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                    fill="none" stroke="url(#gradient1)" stroke-width="3"
+                                                    stroke-dasharray="8, 100" />
+                                            </svg>
+                                            <span class="dial-value">8%</span>
+                                        </div>
+                                        <span class="dial-label">Recommended Discount</span>
+                                    </div>
+                                    <div class="rec-impact">
+                                        <p>Projected clearance in <strong>35 days</strong></p>
+                                        <p>Revenue recovery: <strong class="success-text">₹35,100</strong></p>
+                                    </div>
+                                    <button class="btn btn-primary">Apply Discount</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BUNDLES TAB -->
+                    <div id="tab-bundles" class="ml-tab-content">
+                        <div class="ml-summary-cards">
+                            <div class="ml-summary-card">
+                                <div class="ml-summary-value">15</div>
+                                <div class="ml-summary-label">Bundle Suggestions</div>
+                            </div>
+                            <div class="ml-summary-card accent">
+                                <div class="ml-summary-value">₹850K</div>
+                                <div class="ml-summary-label">Dead Stock Value</div>
+                            </div>
+                            <div class="ml-summary-card success">
+                                <div class="ml-summary-value">42%</div>
+                                <div class="ml-summary-label">Avg. Confidence</div>
+                            </div>
+                        </div>
+
+                        <div class="bundle-grid">
+                            <div class="bundle-card-lg" data-animate="fadeUp">
+                                <div class="bundle-header">
+                                    <span class="bundle-badge">TOP PICK</span>
+                                    <span class="bundle-confidence">Confidence: 42%</span>
+                                </div>
+                                <div class="bundle-products">
+                                    <div class="bundle-product fast">
+                                        <i class="fa-solid fa-bolt"></i>
+                                        <strong>P011</strong>
+                                        <span>Fast Mover</span>
+                                        <span class="bundle-product-stat">82 units/month</span>
+                                    </div>
+                                    <div class="bundle-plus"><i class="fa-solid fa-plus"></i></div>
+                                    <div class="bundle-product slow">
+                                        <i class="fa-solid fa-snowflake"></i>
+                                        <strong>P090</strong>
+                                        <span>Slow Mover</span>
+                                        <span class="bundle-product-stat">2 units/month</span>
+                                    </div>
+                                    <div class="bundle-equals"><i class="fa-solid fa-equals"></i></div>
+                                    <div class="bundle-product result">
+                                        <i class="fa-solid fa-gift"></i>
+                                        <strong>Starter Pack</strong>
+                                        <span>₹500 extra</span>
+                                        <span class="bundle-product-stat">Clear dead stock!</span>
+                                    </div>
+                                </div>
+                                <div class="bundle-actions">
+                                    <button class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Create
+                                        Bundle</button>
+                                    <button class="btn btn-outline">Customize</button>
+                                </div>
+                            </div>
+
+                            <div class="bundle-card-lg" data-animate="fadeUp" style="--delay: 0.1s">
+                                <div class="bundle-header">
+                                    <span class="bundle-badge secondary">RECOMMENDED</span>
+                                    <span class="bundle-confidence">Confidence: 38%</span>
+                                </div>
+                                <div class="bundle-products">
+                                    <div class="bundle-product fast">
+                                        <i class="fa-solid fa-bolt"></i>
+                                        <strong>P029</strong>
+                                        <span>Fast Mover</span>
+                                        <span class="bundle-product-stat">68 units/month</span>
+                                    </div>
+                                    <div class="bundle-plus"><i class="fa-solid fa-plus"></i></div>
+                                    <div class="bundle-product slow">
+                                        <i class="fa-solid fa-snowflake"></i>
+                                        <strong>P064</strong>
+                                        <span>Slow Mover</span>
+                                        <span class="bundle-product-stat">3 units/month</span>
+                                    </div>
+                                    <div class="bundle-equals"><i class="fa-solid fa-equals"></i></div>
+                                    <div class="bundle-product result">
+                                        <i class="fa-solid fa-gift"></i>
+                                        <strong>Power Bundle</strong>
+                                        <span>₹300 extra</span>
+                                        <span class="bundle-product-stat">Clear 450+ units</span>
+                                    </div>
+                                </div>
+                                <div class="bundle-actions">
+                                    <button class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Create
+                                        Bundle</button>
+                                    <button class="btn btn-outline">Customize</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== PIPELINE PAGE ========== -->
+                <section id="page-pipeline" class="page">
+                    <div class="page-header">
+                        <div>
+                            <h2 class="page-title">Data Pipeline</h2>
+                            <p class="page-subtitle">Medallion Architecture — Bronze → Silver → Gold</p>
+                        </div>
+                        <div class="page-actions">
+                            <button class="btn btn-primary" id="runPipelineBtn"><i class="fa-solid fa-play"></i> Run
+                                Pipeline</button>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-flow">
+                        <!-- SOURCE SYSTEMS -->
+                        <div class="pipeline-stage sources">
+                            <h3 class="stage-title">Source Systems (Silos)</h3>
+                            <div class="pipeline-nodes">
+                                <div class="pipeline-node source-node" data-animate="fadeUp" style="--delay: 0s">
+                                    <div class="node-icon"><i class="fa-solid fa-cash-register"></i></div>
+                                    <strong>POS System</strong>
+                                    <span>1,000 transactions</span>
+                                    <span class="node-status active">Connected</span>
+                                </div>
+                                <div class="pipeline-node source-node" data-animate="fadeUp" style="--delay: 0.1s">
+                                    <div class="node-icon"><i class="fa-solid fa-globe"></i></div>
+                                    <strong>E-commerce</strong>
+                                    <span>500 orders</span>
+                                    <span class="node-status active">Connected</span>
+                                </div>
+                                <div class="pipeline-node source-node" data-animate="fadeUp" style="--delay: 0.2s">
+                                    <div class="node-icon"><i class="fa-solid fa-warehouse"></i></div>
+                                    <strong>Warehouse</strong>
+                                    <span>300 records</span>
+                                    <span class="node-status active">Connected</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ARROWS -->
+                        <div class="pipeline-arrow">
+                            <div class="arrow-line"></div>
+                            <div class="arrow-label">Ingest</div>
+                        </div>
+
+                        <!-- BRONZE -->
+                        <div class="pipeline-stage bronze">
+                            <div class="pipeline-node layer-node bronze-node" data-animate="fadeUp"
+                                style="--delay: 0.3s">
+                                <div class="layer-badge">BRONZE</div>
+                                <strong>Raw Layer</strong>
+                                <span>As-is data dump</span>
+                                <span>Parquet format</span>
+                                <span class="node-status active">1,800 rows</span>
+                            </div>
+                        </div>
+
+                        <div class="pipeline-arrow">
+                            <div class="arrow-line"></div>
+                            <div class="arrow-label">Clean & Unify</div>
+                        </div>
+
+                        <!-- SILVER -->
+                        <div class="pipeline-stage silver">
+                            <div class="pipeline-node layer-node silver-node" data-animate="fadeUp"
+                                style="--delay: 0.4s">
+                                <div class="layer-badge">SILVER</div>
+                                <strong>Refined Layer</strong>
+                                <span>Unified Sales + Clean Inventory</span>
+                                <span>Quality validated</span>
+                                <span class="node-status active">1,500 rows</span>
+                            </div>
+                        </div>
+
+                        <div class="pipeline-arrow">
+                            <div class="arrow-line"></div>
+                            <div class="arrow-label">Model & Optimize</div>
+                        </div>
+
+                        <!-- GOLD -->
+                        <div class="pipeline-stage gold">
+                            <div class="pipeline-node layer-node gold-node" data-animate="fadeUp" style="--delay: 0.5s">
+                                <div class="layer-badge">GOLD</div>
+                                <strong>Analytics Layer</strong>
+                                <span>Star Schema (Facts + Dimensions)</span>
+                                <span>KPIs calculated</span>
+                                <span class="node-status active">Analytics-Ready</span>
+                            </div>
+                        </div>
+
+                        <div class="pipeline-arrow">
+                            <div class="arrow-line"></div>
+                            <div class="arrow-label">Intelligence</div>
+                        </div>
+
+                        <!-- ML -->
+                        <div class="pipeline-stage ml">
+                            <div class="pipeline-nodes">
+                                <div class="pipeline-node ml-node" data-animate="fadeUp" style="--delay: 0.6s">
+                                    <div class="node-icon"><i class="fa-solid fa-tag"></i></div>
+                                    <strong>Markdown ML</strong>
+                                    <span>Discount Optimizer</span>
+                                    <span class="node-status pending">Ready</span>
+                                </div>
+                                <div class="pipeline-node ml-node" data-animate="fadeUp" style="--delay: 0.7s">
+                                    <div class="node-icon"><i class="fa-solid fa-gift"></i></div>
+                                    <strong>Bundle ML</strong>
+                                    <span>Apriori Engine</span>
+                                    <span class="node-status pending">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== SETTINGS PAGE ========== -->
+                <section id="page-settings" class="page">
+                    <div class="page-header">
+                        <div>
+                            <h2 class="page-title">Settings</h2>
+                            <p class="page-subtitle">Configure your Ajeya instance</p>
+                        </div>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-palette"></i> Appearance</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="setting-item">
+                                    <div>
+                                        <strong>Dark Mode</strong>
+                                        <p>Toggle between light and dark themes</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="darkModeSwitch" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <div>
+                                        <strong>Animations</strong>
+                                        <p>Enable smooth UI transitions</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-database"></i> Data Pipeline</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="setting-item">
+                                    <div>
+                                        <strong>Auto-refresh</strong>
+                                        <p>Auto-refresh data every 60 seconds</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <div>
+                                        <strong>Pipeline Status</strong>
+                                        <p>Current pipeline health</p>
+                                    </div>
+                                    <span class="status-badge online">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- SVG GRADIENT DEFINITIONS -->
+    <svg style="position:absolute;width:0;height:0">
+        <defs>
+            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#6366f1" />
+                <stop offset="100%" style="stop-color:#8b5cf6" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
